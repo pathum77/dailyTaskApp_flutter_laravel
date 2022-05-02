@@ -2,6 +2,9 @@
 
 import 'package:daily_task/network/edit_task.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+import 'dashboard_scren.dart';
 
 class EditTask extends StatefulWidget {
   const EditTask(
@@ -109,6 +112,27 @@ class _EditTaskState extends State<EditTask> {
                     ),
                     onPressed: () {
                       editTsk.editData(widget.id, tsk, desc);
+                      Alert(
+                        context: context,
+                        type: AlertType.success,
+                        title: "SUCCESS",
+                        desc: "The task was edited.",
+                        buttons: [
+                          DialogButton(
+                            color: Colors.green,
+                            child: const Text(
+                              "OK",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const DashboardScreen();
+                            })),
+                            width: 120,
+                          )
+                        ],
+                      ).show();
                     },
                   ),
                 )

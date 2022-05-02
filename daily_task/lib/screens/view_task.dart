@@ -2,6 +2,7 @@ import 'package:daily_task/network/delete_task.dart';
 import 'package:daily_task/screens/dashboard_scren.dart';
 import 'package:daily_task/screens/edit_task.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ViewTask extends StatelessWidget {
   const ViewTask(
@@ -222,10 +223,28 @@ class ViewTask extends StatelessWidget {
                     ),
                     onPressed: () {
                       deleteTsk.deleteData(id);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return DashboardScreen();
-                      }));
+                      Alert(
+                        context: context,
+                        type: AlertType.success,
+                        title: "SUCCESS",
+                        desc:
+                            "The task is completed and it removed from your tasks.",
+                        buttons: [
+                          DialogButton(
+                            color: Colors.green,
+                            child: const Text(
+                              "OK",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const DashboardScreen();
+                            })),
+                            width: 120,
+                          )
+                        ],
+                      ).show();
                     },
                   ),
                 ),
