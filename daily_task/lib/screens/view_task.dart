@@ -9,12 +9,16 @@ class ViewTask extends StatelessWidget {
       {Key? key,
       required this.taskName,
       required this.description,
-      required this.id})
+      required this.id,
+      required this.startDate,
+      required this.endDate})
       : super(key: key);
 
   final String taskName;
   final String description;
   final int id;
+  final String startDate;
+  final String endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +57,12 @@ class ViewTask extends StatelessWidget {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return EditTask(
-                            taskName: taskName,
-                            description: description,
-                            id: id);
+                          taskName: taskName,
+                          description: description,
+                          id: id,
+                          wstartDate: startDate,
+                          wendDate: endDate,
+                        );
                       }));
                     },
                     icon: Icon(
@@ -74,18 +81,18 @@ class ViewTask extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              color: Colors.white,
+              //color: Colors.white,
               width: MediaQuery.of(context).size.width * 0.97,
               child: Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: Colors.white,
+                      //color: Colors.white,
                       width: MediaQuery.of(context).size.width * 0.10,
                       height: MediaQuery.of(context).size.width * 0.10,
                       child: Icon(
-                        Icons.alarm,
+                        Icons.calendar_today,
                         color: Colors.green,
                         size: MediaQuery.of(context).size.width * 0.10,
                       ),
@@ -95,8 +102,8 @@ class ViewTask extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.7,
-                      color: Colors.white,
-                      child: Text('start date'),
+                      //color: Colors.white,
+                      child: Text(startDate),
                     ),
                   )
                 ],
@@ -107,18 +114,18 @@ class ViewTask extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              color: Colors.white,
+              //color: Colors.white,
               width: MediaQuery.of(context).size.width * 0.97,
               child: Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: Colors.white,
+                      //color: Colors.white,
                       width: MediaQuery.of(context).size.width * 0.10,
                       height: MediaQuery.of(context).size.width * 0.10,
                       child: Icon(
-                        Icons.alarm,
+                        Icons.calendar_today,
                         color: Colors.red,
                         size: MediaQuery.of(context).size.width * 0.10,
                       ),
@@ -128,8 +135,8 @@ class ViewTask extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.7,
-                      color: Colors.white,
-                      child: Text('end date'),
+                      //color: Colors.white,
+                      child: Text(endDate),
                     ),
                   )
                 ],
@@ -140,14 +147,14 @@ class ViewTask extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              color: Colors.white,
+              //color: Colors.white,
               width: MediaQuery.of(context).size.width * 0.97,
               child: Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      color: Colors.white,
+                      //color: Colors.white,
                       width: MediaQuery.of(context).size.width * 0.10,
                       height: MediaQuery.of(context).size.width * 0.10,
                       child: Icon(
@@ -161,7 +168,7 @@ class ViewTask extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.7,
-                      color: Colors.white,
+                      //color: Colors.white,
                       child: Text(description),
                     ),
                   )

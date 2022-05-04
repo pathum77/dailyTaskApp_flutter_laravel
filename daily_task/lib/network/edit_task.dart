@@ -3,7 +3,8 @@
 import 'package:http/http.dart' as http;
 
 class EditTaskk {
-  void editData(int id, String taskname, String description) async {
+  void editData(int id, String taskname, String description, String startdate,
+      String enddate) async {
     // final prefs = await SharedPreferences.getInstance();
     // final key = 'token';
     // final value = prefs.get(key ) ?? 0;
@@ -14,7 +15,9 @@ class EditTaskk {
       //'Authorization' : 'Bearer $value'
     }, body: {
       "taskname": taskname,
-      "description": description
+      "description": description,
+      "startdate": startdate,
+      "enddate": enddate
     }).then((response) {
       print('Response status : ${response.statusCode}');
       print('Response body : ${response.body}');

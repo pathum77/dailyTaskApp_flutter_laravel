@@ -16,6 +16,8 @@ class ListController extends Controller
 
         $data->taskname=$request->taskname;
         $data->description=$request->description;
+        $data->startdate=$request->startdate;
+        $data->enddate=$request->enddate;
 
         return $data->save();
     }
@@ -25,6 +27,8 @@ class ListController extends Controller
 
         $data->taskname=$request->taskname;
         $data->description=$request->description;
+        $data->startdate=$request->startdate;
+        $data->enddate=$request->enddate;
 
         return $data->update();
     }

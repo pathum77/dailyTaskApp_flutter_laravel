@@ -58,18 +58,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               taskName: snapshot.data![i]['taskname'],
                               description: snapshot.data![i]['description'],
                               id: snapshot.data![i]['id'],
+                              startDate: snapshot.data![i]['startdate'],
+                              endDate: snapshot.data![i]['enddate'],
                             );
                           },
                         ),
                       );
                     },
-                    child: Card(
-                      child: ListTile(
-                        title: Text(
-                          snapshot.data![i]['taskname'],
-                        ),
-                        subtitle: Text(
-                          snapshot.data![i]['description'],
+                    child: Container(
+                      height: MediaQuery.of(context).size.width * 0.23,
+                      child: Card(
+                        child: ListTile(
+                          title: Text(
+                            snapshot.data![i]['taskname'],
+                          ),
+                          subtitle: Text(snapshot
+                                      .data![i]['description'].length >
+                                  35
+                              ? snapshot.data![i]['description'].replaceRange(
+                                  35,
+                                  snapshot.data![i]['description'].length,
+                                  '...')
+                              : snapshot.data![i]['description']),
                         ),
                       ),
                     ),

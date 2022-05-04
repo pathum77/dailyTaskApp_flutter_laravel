@@ -2,8 +2,8 @@
 
 import 'package:daily_task/network/edit_task.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
 import 'dashboard_scren.dart';
 
 class EditTask extends StatefulWidget {
@@ -11,12 +11,16 @@ class EditTask extends StatefulWidget {
       {Key? key,
       required this.taskName,
       required this.description,
-      required this.id})
+      required this.id,
+      required this.wstartDate,
+      required this.wendDate})
       : super(key: key);
 
   final String taskName;
   final String description;
   final int id;
+  final String wstartDate;
+  final String wendDate;
 
   @override
   State<EditTask> createState() => _EditTaskState();
@@ -25,11 +29,23 @@ class EditTask extends StatefulWidget {
 class _EditTaskState extends State<EditTask> {
   EditTaskk editTsk = EditTaskk();
 
-  TextEditingController taskController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
+  TextEditingController taskName = TextEditingController();
+  TextEditingController description = TextEditingController();
 
   late String tsk;
   late String desc;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startDate.text = widget.wstartDate;
+    endDate.text = widget.wendDate;
+    taskName.text = widget.taskName;
+    description.text = widget.description;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +59,7 @@ class _EditTaskState extends State<EditTask> {
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
             child: TextFormField(
-              //controller: taskController,
-              initialValue: widget.taskName,
-              onChanged: (value) => {
-                tsk = value,
-              },
+              controller: taskName,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Task Name',
@@ -58,11 +70,65 @@ class _EditTaskState extends State<EditTask> {
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
             child: TextFormField(
-              //controller: descriptionController,
-              initialValue: widget.description,
-              onChanged: (value) => {
-                desc = value,
-              },
+                controller: startDate,
+                decoration: const InputDecoration(
+                  suffixIcon: Icon(
+                    Icons.calendar_today,
+                    color: Colors.green,
+                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Start Date',
+                ),
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(
+                          2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101));
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    setState(() {
+                      startDate.text = formattedDate;
+                    });
+                  }
+                }),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child: TextFormField(
+                controller: endDate,
+                decoration: const InputDecoration(
+                  suffixIcon: Icon(
+                    Icons.calendar_today,
+                    color: Colors.red,
+                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'End Date',
+                ),
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(
+                          2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101));
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    setState(() {
+                      endDate.text = formattedDate;
+                    });
+                  }
+                }),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child: TextFormField(
+              controller: description,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Task Description',
@@ -88,6 +154,7 @@ class _EditTaskState extends State<EditTask> {
                       color: Colors.blue,
                     ),
                     onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       Navigator.pop(context);
                     },
                   ),
@@ -111,7 +178,9 @@ class _EditTaskState extends State<EditTask> {
                       ),
                     ),
                     onPressed: () {
-                      editTsk.editData(widget.id, tsk, desc);
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      editTsk.editData(
+                          widget.id, taskName.text, description.text, startDate.text, endDate.text);
                       Alert(
                         context: context,
                         type: AlertType.success,
@@ -138,7 +207,7 @@ class _EditTaskState extends State<EditTask> {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );
